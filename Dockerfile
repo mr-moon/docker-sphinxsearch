@@ -8,9 +8,6 @@ RUN apt-get update && apt-get install -y \
         libpq-dev \
         wget
 
-# set timezone
-# @see http://unix.stackexchange.com/a/76711
-RUN cp /usr/share/zoneinfo/UTC /etc/localtime && dpkg-reconfigure --frontend noninteractive tzdata
 
 # set up and expose directories
 RUN mkdir -pv /opt/sphinx/log /opt/sphinx/index

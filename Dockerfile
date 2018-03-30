@@ -1,6 +1,6 @@
 # Dockerfile for Sphinx SE
 FROM debian:stretch
-ENV SPHINX_VERSION 3.0.1-7fec4f6
+ENV SPHINX_VERSION 3.0.2-2592786
 
 # install dependencies
 RUN apt-get update && apt-get install -y \
@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
 
 # set timezone
 # @see http://unix.stackexchange.com/a/76711
-RUN cp /usr/share/zoneinfo/CET /etc/localtime && dpkg-reconfigure --frontend noninteractive tzdata
+RUN cp /usr/share/zoneinfo/UTC /etc/localtime && dpkg-reconfigure --frontend noninteractive tzdata
 
 # set up and expose directories
 RUN mkdir -pv /opt/sphinx/log /opt/sphinx/index
@@ -22,7 +22,7 @@ RUN cd /opt/sphinx && tar -xf /tmp/sphinxsearch.tar.gz
 RUN rm /tmp/sphinxsearch.tar.gz
 
 # point to sphinx binaries
-ENV PATH "${PATH}:/opt/sphinx/sphinx-3.0.1-7fec4f6-linux-amd64/bin"
+ENV PATH "${PATH}:/opt/sphinx/sphinx-${SPHINX_VERSION}-linux-amd64/bin"
 RUN indexer -v
 
 # redirect logs to stdout
